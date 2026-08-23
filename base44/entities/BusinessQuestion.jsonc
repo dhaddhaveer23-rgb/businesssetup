@@ -1,0 +1,44 @@
+{
+  "name": "BusinessQuestion",
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string"
+    },
+    "question_key": {
+      "type": "string"
+    },
+    "input_type": {
+      "type": "string",
+      "enum": [
+        "boolean",
+        "select",
+        "text"
+      ],
+      "default": "boolean"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "business_type_id": {
+      "type": "string"
+    },
+    "step": {
+      "type": "number"
+    },
+    "help_text": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "question",
+    "question_key",
+    "country_code"
+  ]
+}

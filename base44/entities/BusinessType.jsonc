@@ -1,0 +1,22 @@
+{
+  "name": "BusinessType",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "country_code"
+  ]
+}

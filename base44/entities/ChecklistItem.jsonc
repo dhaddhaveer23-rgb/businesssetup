@@ -1,0 +1,46 @@
+{
+  "name": "ChecklistItem",
+  "type": "object",
+  "properties": {
+    "user_business_id": {
+      "type": "string"
+    },
+    "requirement_id": {
+      "type": "string"
+    },
+    "requirement_name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "user_business_id",
+    "requirement_id",
+    "requirement_name",
+    "category"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

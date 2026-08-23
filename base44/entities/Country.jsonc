@@ -1,0 +1,26 @@
+{
+  "name": "Country",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
+    },
+    "flag": {
+      "type": "string"
+    },
+    "tagline": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "code"
+  ]
+}

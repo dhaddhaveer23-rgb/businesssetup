@@ -1,0 +1,81 @@
+{
+  "name": "Requirement",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Business Registration",
+        "Licences & Permits",
+        "Premises",
+        "Tax",
+        "Employees",
+        "Safety",
+        "Industry-specific",
+        "Other"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "who_it_applies_to": {
+      "type": "string"
+    },
+    "why_needed": {
+      "type": "string"
+    },
+    "required_documents": {
+      "type": "string"
+    },
+    "cost": {
+      "type": "string"
+    },
+    "processing_time": {
+      "type": "string"
+    },
+    "renewal_info": {
+      "type": "string"
+    },
+    "issuing_authority": {
+      "type": "string"
+    },
+    "official_link": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "last_verified_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_test_data": {
+      "type": "boolean",
+      "default": true
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "business_type_id": {
+      "type": "string"
+    },
+    "applies_to_employees": {
+      "type": "boolean"
+    },
+    "applies_to_premises": {
+      "type": "boolean"
+    },
+    "searchable": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "country_code"
+  ]
+}
