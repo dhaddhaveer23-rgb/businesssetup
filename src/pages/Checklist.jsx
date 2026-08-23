@@ -51,19 +51,25 @@ export default function Checklist() {
   const progress = items.length > 0 ? Math.round((completedCount / items.length) * 100) : 0;
 
   const toggle = async (item) => {
+    if (toggling === item.id) return;
     setToggling(item.id);
     const newCompleted = !item.completed;
+    // Optimistic update: reflect the change in the UI immediately
+    const updatedItems = items.map((i) => (i.id === item.id ? { ...i, completed: newCompleted } : i));
+    setItems(updatedItems);
+    const newCount = updatedItems.filter((i) => i.completed).length;
+    const newProgress = updatedItems.length > 0 ? Math.round((newCount / updatedItems.length) * 100) : 0;
+    setBusiness({ ...business, checklist_progress: newProgress });
     try {
       await base44.entities.ChecklistItem.update(item.id, {
         completed: newCompleted,
         completed_date: newCompleted ? new Date().toISOString().slice(0, 10) : null
       });
-      const updatedItems = items.map((i) => (i.id === item.id ? { ...i, completed: newCompleted } : i));
-      setItems(updatedItems);
-      const newCount = updatedItems.filter((i) => i.completed).length;
-      const newProgress = updatedItems.length > 0 ? Math.round((newCount / updatedItems.length) * 100) : 0;
-      setBusiness({ ...business, checklist_progress: newProgress });
       base44.entities.UserBusiness.update(businessId, { checklist_progress: newProgress }).catch(() => {});
+    } catch (e) {
+      // Revert on failure
+      setItems(items);
+      setBusiness({ ...business, checklist_progress: progress });
     } finally {
       setToggling(null);
     }
@@ -93,7 +99,7 @@ export default function Checklist() {
     <div className="min-h-screen bg-background">
       <div className="max-w-md mx-auto w-full">
         {/* Header */}
-        <div className="px-6 pt-12 pb-6 bg-primary text-primary-foreground">
+        <div className="px-6 pt-[calc(3rem+env(safe-area-inset-top))] pb-6 bg-primary text-primary-foreground">
           <button onClick={() => navigate('/my-businesses')} className="flex items-center gap-1.5 text-sm text-primary-foreground/80 mb-4">
             <ArrowLeft size={16} /> My Businesses
           </button>
@@ -139,7 +145,7 @@ export default function Checklist() {
                     <button
                       onClick={() => toggle(item)}
                       disabled={toggling === item.id}
-                      className="shrink-0"
+                      className="shrink-0 select-none"
                     >
                       {item.completed ? (
                         <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">

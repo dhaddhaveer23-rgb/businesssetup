@@ -26,7 +26,7 @@ export default function Home() {
   const firstName = user?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
 
   return (
-    <div className="px-6 pt-12">
+    <div className="px-6 pt-[calc(3rem+env(safe-area-inset-top))]">
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-sm text-muted-foreground">Welcome back</p>
@@ -39,7 +39,7 @@ export default function Home() {
 
       <Link
         to="/wizard"
-        className="block rounded-3xl bg-primary text-primary-foreground p-6 mb-6 relative overflow-hidden shadow-lg shadow-primary/20"
+        className="block rounded-3xl bg-primary text-primary-foreground p-6 mb-6 relative overflow-hidden shadow-lg shadow-primary/20 select-none"
       >
         <div className="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/10" />
         <div className="absolute -right-10 bottom-2 w-20 h-20 rounded-full bg-white/10" />
@@ -60,7 +60,7 @@ export default function Home() {
       <div className="grid grid-cols-2 gap-3">
         <Link
           to="/my-businesses"
-          className="rounded-2xl bg-card border border-border p-5 hover:border-primary/30 transition"
+          className="rounded-2xl bg-card border border-border p-5 hover:border-primary/30 transition select-none"
         >
           <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center mb-3">
             <Briefcase size={18} />
@@ -71,7 +71,7 @@ export default function Home() {
 
         <Link
           to="/search"
-          className="rounded-2xl bg-card border border-border p-5 hover:border-primary/30 transition"
+          className="rounded-2xl bg-card border border-border p-5 hover:border-primary/30 transition select-none"
         >
           <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center mb-3">
             <FileCheck size={18} />
@@ -83,7 +83,7 @@ export default function Home() {
 
       <Link
         to="/search"
-        className="mt-3 flex items-center gap-3 rounded-2xl bg-card border border-border p-4 hover:border-primary/30 transition"
+        className="mt-3 flex items-center gap-3 rounded-2xl bg-card border border-border p-4 hover:border-primary/30 transition select-none"
       >
         <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center">
           <Search size={18} />

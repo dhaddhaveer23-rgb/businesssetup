@@ -12,7 +12,7 @@ const items = [
 export default function BottomNav() {
   const { pathname } = useLocation();
   return (
-    <nav className="bg-card/90 backdrop-blur-lg border-t border-border px-2 py-1.5">
+    <nav className="bg-card/90 backdrop-blur-lg border-t border-border px-2 pt-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] select-none">
       <div className="flex items-center justify-around">
         {items.map(({ to, label, icon: Icon }) => {
           const active = pathname === to || (to !== '/home' && pathname.startsWith(to));
@@ -21,7 +21,7 @@ export default function BottomNav() {
               key={to}
               to={to}
               className={cn(
-                'flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-colors',
+                'flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-colors select-none',
                 active ? 'text-primary' : 'text-muted-foreground'
               )}
             >

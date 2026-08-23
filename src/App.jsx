@@ -25,6 +25,7 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfService from '@/pages/TermsOfService';
 import Disclaimer from '@/pages/Disclaimer';
 import Contact from '@/pages/Contact';
+import useSystemDarkMode from '@/hooks/useSystemDarkMode';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -82,7 +83,7 @@ const AuthenticatedApp = () => {
 
 
 function App() {
-
+  useSystemDarkMode();
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>
