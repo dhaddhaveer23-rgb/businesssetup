@@ -77,6 +77,18 @@ export default function Checklist() {
     );
   }
 
+  if (!business) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background px-6 text-center">
+        <h1 className="font-heading text-xl font-semibold mb-2">Business not found</h1>
+        <p className="text-sm text-muted-foreground mb-6">This business may have been deleted or isn't available.</p>
+        <Link to="/my-businesses" className="px-5 py-3 rounded-2xl bg-primary text-primary-foreground font-medium text-sm">
+          Back to My Businesses
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-md mx-auto w-full">

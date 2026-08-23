@@ -63,6 +63,16 @@ export default function Welcome() {
             Currently supporting Singapore. More countries coming soon.
           </p>
         </div>
+
+        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-6">
+          <Link to="/privacy-policy" className="hover:text-foreground transition">Privacy</Link>
+          <span className="text-border">·</span>
+          <Link to="/terms-of-service" className="hover:text-foreground transition">Terms</Link>
+          <span className="text-border">·</span>
+          <Link to="/disclaimer" className="hover:text-foreground transition">Disclaimer</Link>
+          <span className="text-border">·</span>
+          <Link to="/contact" className="hover:text-foreground transition">Contact</Link>
+        </div>
       </div>
     </div>
   );

@@ -91,15 +91,25 @@ export default function Wizard() {
         status: 'in_progress'
       });
 
-      // Fetch all SG requirements and filter
-      const allReqs = await base44.entities.Requirement.filter({ country_code: answers.country });
+      // Fetch all SG requirements + conditional rules, then filter
+      const [allReqs, rules] = await Promise.all([
+        base44.entities.Requirement.filter({ country_code: answers.country }),
+        base44.entities.RequirementRule.filter({ country_code: answers.country })
+      ]);
+      const rulesByReq = {};
+      rules.forEach((r) => {
+        if (!rulesByReq[r.requirement_id]) rulesByReq[r.requirement_id] = [];
+        rulesByReq[r.requirement_id].push(r);
+      });
       const hasEmp = answers.has_employees === true;
       const hasPrem = answers.has_premises === true;
       const matched = allReqs.filter((r) => {
         const btOk = !r.business_type_id || r.business_type_id === answers.business_type_id;
         const empOk = r.applies_to_employees === null || r.applies_to_employees === undefined || r.applies_to_employees === hasEmp;
         const premOk = r.applies_to_premises === null || r.applies_to_premises === undefined || r.applies_to_premises === hasPrem;
-        return btOk && empOk && premOk;
+        const reqRules = rulesByReq[r.id] || [];
+        const rulesOk = reqRules.every((rule) => String(answers[rule.question_key]) === String(rule.expected_value));
+        return btOk && empOk && premOk && rulesOk;
       });
 
       if (matched.length > 0) {

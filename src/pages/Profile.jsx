@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Briefcase, Settings, LogOut, ChevronRight, Mail, User as UserIcon } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
@@ -64,6 +64,30 @@ export default function Profile() {
           <ChevronRight size={18} className="text-muted-foreground" />
         </button>
 
+        <Link
+          to="/contact"
+          className="w-full flex items-center gap-3 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition text-left"
+        >
+          <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center">
+            <Mail size={18} />
+          </div>
+          <div className="flex-1">
+            <p className="font-medium text-sm">Contact</p>
+            <p className="text-xs text-muted-foreground">Questions, feedback or corrections</p>
+          </div>
+          <ChevronRight size={18} className="text-muted-foreground" />
+        </Link>
+      </div>
+
+      <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-8">
+        <Link to="/privacy-policy" className="hover:text-foreground transition">Privacy</Link>
+        <span className="text-border">·</span>
+        <Link to="/terms-of-service" className="hover:text-foreground transition">Terms</Link>
+        <span className="text-border">·</span>
+        <Link to="/disclaimer" className="hover:text-foreground transition">Disclaimer</Link>
+      </div>
+
+      <div className="mt-6">
         <button
           onClick={handleLogout}
           className="w-full flex items-center gap-3 p-4 rounded-2xl bg-card border border-border hover:border-destructive/30 transition text-left"
