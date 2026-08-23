@@ -48,6 +48,9 @@
     "source": {
       "type": "string"
     },
+    "source_url": {
+      "type": "string"
+    },
     "last_verified_date": {
       "type": "string",
       "format": "date"
@@ -55,6 +58,15 @@
     "is_test_data": {
       "type": "boolean",
       "default": true
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "test_data",
+        "unverified",
+        "verified"
+      ],
+      "default": "test_data"
     },
     "country_code": {
       "type": "string"

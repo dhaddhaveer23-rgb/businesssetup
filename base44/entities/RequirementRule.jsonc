@@ -1,0 +1,33 @@
+{
+  "name": "RequirementRule",
+  "type": "object",
+  "properties": {
+    "requirement_id": {
+      "type": "string"
+    },
+    "requirement_name": {
+      "type": "string"
+    },
+    "question_key": {
+      "type": "string"
+    },
+    "expected_value": {
+      "type": "string"
+    },
+    "country_code": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_test_data": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "requirement_id",
+    "question_key",
+    "expected_value"
+  ]
+}

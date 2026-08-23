@@ -1,0 +1,19 @@
+{
+  "name": "BusinessSetup",
+  "short_name": "BusinessSetup",
+  "description": "Start your business smarter. Find the registrations, licences and requirements you need.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "icons": [
+    {
+      "src": "https://media.base44.com/images/public/6a8b157e6684f9009a413261/b2adcda10_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
