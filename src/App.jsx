@@ -25,6 +25,7 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfService from '@/pages/TermsOfService';
 import Disclaimer from '@/pages/Disclaimer';
 import Contact from '@/pages/Contact';
+import AdminDashboard from '@/pages/AdminDashboard';
 import useSystemDarkMode from '@/hooks/useSystemDarkMode';
 
 const AuthenticatedApp = () => {
@@ -74,6 +75,7 @@ const AuthenticatedApp = () => {
         <Route path="/wizard" element={<Wizard />} />
         <Route path="/checklist/:businessId" element={<Checklist />} />
         <Route path="/requirement/:id" element={<RequirementDetails />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Route>
 
       <Route path="*" element={<PageNotFound />} />

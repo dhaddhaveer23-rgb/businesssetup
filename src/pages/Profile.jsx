@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Briefcase, Settings, LogOut, ChevronRight, Mail, Trash2, AlertTriangle, Loader2 } from 'lucide-react';
+import { Briefcase, Settings, LogOut, ChevronRight, Mail, Trash2, AlertTriangle, Loader2, BarChart3 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import {
   AlertDialog,
@@ -105,6 +105,22 @@ export default function Profile() {
           </div>
           <ChevronRight size={18} className="text-muted-foreground" />
         </Link>
+
+        {user?.role === 'admin' && (
+          <Link
+            to="/admin"
+            className="w-full flex items-center gap-3 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition text-left select-none"
+          >
+            <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center">
+              <BarChart3 size={18} />
+            </div>
+            <div className="flex-1">
+              <p className="font-medium text-sm">Analytics Dashboard</p>
+              <p className="text-xs text-muted-foreground">User onboarding funnel and drop-off</p>
+            </div>
+            <ChevronRight size={18} className="text-muted-foreground" />
+          </Link>
+        )}
       </div>
 
       <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-8 select-none">
