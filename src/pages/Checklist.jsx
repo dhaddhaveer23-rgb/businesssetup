@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Check, ChevronRight, Circle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import TipsButton from '@/components/TipsButton';
+import PullToRefresh from '@/components/PullToRefresh';
 
 const CATEGORY_ORDER = [
   'Business Registration',
@@ -103,6 +104,7 @@ export default function Checklist() {
   }
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="min-h-screen bg-background">
       <div className="max-w-md mx-auto w-full">
         {/* Header */}
@@ -138,7 +140,7 @@ export default function Checklist() {
                 {group.items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-card border border-border"
+                    className="flex items-center gap-3 p-3.5 rounded-2xl bg-card border border-border select-none"
                   >
                     <button
                       onClick={() => toggle(item)}
@@ -170,5 +172,6 @@ export default function Checklist() {
         </div>
       </div>
     </div>
+    </PullToRefresh>
   );
 }

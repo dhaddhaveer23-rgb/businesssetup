@@ -123,7 +123,7 @@ export default function Profile() {
         )}
       </div>
 
-      <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground mt-8 select-none">
+      <div className="footer-links flex items-center justify-center gap-4 text-xs text-muted-foreground mt-8 select-none">
         <Link to="/privacy-policy" className="hover:text-foreground transition">Privacy</Link>
         <span className="text-border">·</span>
         <Link to="/terms-of-service" className="hover:text-foreground transition">Terms</Link>
@@ -187,7 +187,7 @@ export default function Profile() {
         </AlertDialog>
       </div>
 
-      <p className="text-center text-xs text-muted-foreground mt-10 select-none">BusinessSetup · Test data version</p>
+      <p className="text-center text-xs text-muted-foreground mt-10 select-none">BusinessSetup · India</p>
     </div>
   );
 }

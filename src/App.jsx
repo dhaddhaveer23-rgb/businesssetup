@@ -26,6 +26,8 @@ import TermsOfService from '@/pages/TermsOfService';
 import Disclaimer from '@/pages/Disclaimer';
 import Contact from '@/pages/Contact';
 import AdminDashboard from '@/pages/AdminDashboard';
+import { NavigationDirectionProvider } from '@/lib/navigationDirection.jsx';
+import PageTransition from '@/components/PageTransition';
 import useSystemDarkMode from '@/hooks/useSystemDarkMode';
 
 const AuthenticatedApp = () => {
@@ -53,8 +55,9 @@ const AuthenticatedApp = () => {
 
   // Render the main app
   return (
+    <NavigationDirectionProvider>
     <Routes>
-      <Route path="/" element={<Welcome />} />
+      <Route path="/" element={<PageTransition><Welcome /></PageTransition>} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -65,21 +68,22 @@ const AuthenticatedApp = () => {
       <Route path="/contact" element={<Contact />} />
 
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
-        <Route path="/select-country" element={<CountrySelection />} />
+        <Route path="/select-country" element={<PageTransition><CountrySelection /></PageTransition>} />
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/my-businesses" element={<MyBusinesses />} />
           <Route path="/search" element={<Search />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
-        <Route path="/wizard" element={<Wizard />} />
-        <Route path="/checklist/:businessId" element={<Checklist />} />
-        <Route path="/requirement/:id" element={<RequirementDetails />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/wizard" element={<PageTransition><Wizard /></PageTransition>} />
+        <Route path="/checklist/:businessId" element={<PageTransition><Checklist /></PageTransition>} />
+        <Route path="/requirement/:id" element={<PageTransition><RequirementDetails /></PageTransition>} />
+        <Route path="/admin" element={<PageTransition><AdminDashboard /></PageTransition>} />
       </Route>
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    </NavigationDirectionProvider>
   );
 };
 

@@ -27,7 +27,7 @@ export default function CountrySelection() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-md mx-auto w-full px-6 pt-14 pb-10">
+      <div className="max-w-md mx-auto w-full px-6 pt-[calc(3.5rem+env(safe-area-inset-top))] pb-10">
         <button
           onClick={() => navigate('/home')}
           className="text-sm text-muted-foreground mb-6 hover:text-foreground transition"

@@ -24,7 +24,7 @@ export default function Welcome() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="flex-1 max-w-md mx-auto w-full flex flex-col px-6 pt-16 pb-10">
+      <div className="flex-1 max-w-md mx-auto w-full flex flex-col px-6 pt-[calc(4rem+env(safe-area-inset-top))] pb-10">
         <div className="flex items-center gap-2 mb-16">
           <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
             <Sparkles className="text-primary-foreground" size={20} />
@@ -35,7 +35,7 @@ export default function Welcome() {
         <div className="flex-1 flex flex-col justify-center">
           <div className="inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6">
             <ShieldCheck size={13} />
-            Singapore · Test data version
+            India · Official guide
           </div>
           <h1 className="font-heading text-4xl font-semibold tracking-tight leading-[1.1] mb-4">
             Start your business smarter.
@@ -60,11 +60,11 @@ export default function Welcome() {
             Log In
           </Link>
           <p className="text-center text-xs text-muted-foreground pt-2">
-            Currently supporting Singapore. More countries coming soon.
+            Currently supporting businesses across India.
           </p>
         </div>
 
-        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-6">
+        <div className="footer-links flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
           <Link to="/privacy-policy" className="hover:text-foreground transition">Privacy</Link>
           <span className="text-border">·</span>
           <Link to="/terms-of-service" className="hover:text-foreground transition">Terms</Link>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Briefcase, Search, FileCheck, Plus, Sparkles } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import PullToRefresh from '@/components/PullToRefresh';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -23,9 +24,12 @@ export default function Home() {
     })();
   }, [navigate]);
 
+  const reload = () => base44.entities.UserBusiness.list().then((b) => setBusinessCount(b.length)).catch(() => {});
+
   const firstName = user?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
 
   return (
+    <PullToRefresh onRefresh={reload}>
     <div className="px-6 pt-[calc(3rem+env(safe-area-inset-top))]">
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -95,5 +99,6 @@ export default function Home() {
         <ArrowRight size={16} className="text-muted-foreground" />
       </Link>
     </div>
+    </PullToRefresh>
   );
 }

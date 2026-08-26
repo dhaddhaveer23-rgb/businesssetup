@@ -88,5 +88,38 @@
 
   body {
     @apply bg-background text-foreground font-body;
+    overscroll-behavior: none;
+  }
+
+  /* Hide scrollbars globally for a native app feel */
+  * {
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Disable text selection on interactive chrome (legal body text stays selectable) */
+  button, a, nav, [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* 44px minimum touch target for footer link rows */
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.375rem;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }

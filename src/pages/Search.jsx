@@ -1,7 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search as SearchIcon, ChevronRight } from 'lucide-react';
+import { Search as SearchIcon, ChevronRight, SlidersHorizontal, ChevronDown, Check } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import PullToRefresh from '@/components/PullToRefresh';
 
 export default function Search() {
   const navigate = useNavigate();
@@ -9,11 +11,15 @@ export default function Search() {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
+  const [filterOpen, setFilterOpen] = useState(false);
 
-  useEffect(() => {
+  const load = () =>
     base44.entities.Requirement.filter({ country_code: 'IN', searchable: true })
       .then(setAll)
       .finally(() => setLoading(false));
+
+  useEffect(() => {
+    load();
   }, []);
 
   const categories = useMemo(() => {
@@ -31,6 +37,7 @@ export default function Search() {
   }, [all, query, category]);
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="px-6 pt-12">
       <h1 className="font-heading text-2xl font-semibold tracking-tight mb-1">Search</h1>
       <p className="text-sm text-muted-foreground mb-5">Find licences, permits and certificates.</p>
@@ -45,19 +52,36 @@ export default function Search() {
         />
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-1 mb-4 -mx-6 px-6">
-        {categories.map((c) => (
-          <button
-            key={c}
-            onClick={() => setCategory(c)}
-            className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium transition whitespace-nowrap ${
-              category === c ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'
-            }`}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
+      <button
+        onClick={() => setFilterOpen(true)}
+        className="flex items-center gap-2 w-full p-3.5 rounded-2xl border border-border bg-card text-sm mb-4 select-none"
+      >
+        <SlidersHorizontal size={16} className="text-muted-foreground" />
+        <span className="flex-1 text-left font-medium">{category === 'All' ? 'All categories' : category}</span>
+        <ChevronDown size={16} className="text-muted-foreground" />
+      </button>
+
+      <Drawer open={filterOpen} onOpenChange={setFilterOpen}>
+        <DrawerContent className="max-w-md mx-auto rounded-t-2xl">
+          <DrawerHeader className="text-left">
+            <DrawerTitle>Filter by category</DrawerTitle>
+          </DrawerHeader>
+          <div className="px-4 pb-8 space-y-1 max-h-[60vh] overflow-y-auto no-scrollbar">
+            {categories.map((c) => (
+              <button
+                key={c}
+                onClick={() => { setCategory(c); setFilterOpen(false); }}
+                className={`w-full flex items-center justify-between p-4 rounded-xl text-left min-h-[44px] select-none ${
+                  category === c ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-secondary'
+                }`}
+              >
+                <span>{c}</span>
+                {category === c && <Check size={18} className="text-primary" />}
+              </button>
+            ))}
+          </div>
+        </DrawerContent>
+      </Drawer>
 
 
       {loading ? (
@@ -84,5 +108,6 @@ export default function Search() {
         </div>
       )}
     </div>
+    </PullToRefresh>
   );
 }

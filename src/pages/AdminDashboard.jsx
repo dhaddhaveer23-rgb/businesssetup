@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Users, CheckCircle2, Award, TrendingDown, BarChart3, ShieldAlert } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import PullToRefresh from '@/components/PullToRefresh';
 
 const COUNTRY_NAMES = { SG: 'Singapore', IN: 'India', MY: 'Malaysia', TH: 'Thailand', ID: 'Indonesia', PH: 'Philippines', VN: 'Vietnam' };
 
@@ -34,22 +35,24 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await base44.functions.invoke('getOnboardingFunnel', {});
-        if (res.data?.error) {
-          setError(res.data.error === 'Forbidden' ? 'not_authorized' : 'error');
-        } else {
-          setData(res.data);
-        }
-      } catch (e) {
-        const status = e?.response?.status;
-        setError(status === 403 ? 'not_authorized' : 'error');
-      } finally {
-        setLoading(false);
+  const load = async () => {
+    try {
+      const res = await base44.functions.invoke('getOnboardingFunnel', {});
+      if (res.data?.error) {
+        setError(res.data.error === 'Forbidden' ? 'not_authorized' : 'error');
+      } else {
+        setData(res.data);
       }
-    })();
+    } catch (e) {
+      const status = e?.response?.status;
+      setError(status === 403 ? 'not_authorized' : 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    load();
   }, []);
 
   if (loading) {
@@ -88,6 +91,7 @@ export default function AdminDashboard() {
   const countries = Object.entries(byCountry).sort((a, b) => b[1].selected - a[1].selected);
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto w-full px-6 pt-[calc(3rem+env(safe-area-inset-top))] pb-12">
         <button onClick={() => navigate(-1)} className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center mb-5 select-none">
@@ -151,8 +155,9 @@ export default function AdminDashboard() {
           )}
         </div>
 
-        <p className="text-xs text-muted-foreground mt-6 text-center">Aggregate counts across all users · Test data version</p>
+        <p className="text-xs text-muted-foreground mt-6 text-center">Aggregate counts across all users</p>
       </div>
     </div>
+    </PullToRefresh>
   );
 }

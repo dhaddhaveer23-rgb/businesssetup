@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Briefcase, ChevronRight, MapPin } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import PullToRefresh from '@/components/PullToRefresh';
 
 export default function MyBusinesses() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function MyBusinesses() {
   }, []);
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="px-6 pt-12">
       <div className="flex items-center justify-between mb-1">
         <h1 className="font-heading text-2xl font-semibold tracking-tight">My Businesses</h1>
@@ -77,5 +79,6 @@ export default function MyBusinesses() {
         </div>
       )}
     </div>
+    </PullToRefresh>
   );
 }
