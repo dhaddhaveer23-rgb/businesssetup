@@ -2,7 +2,7 @@ import LegalLayout, { H2, P, UL } from '@/components/LegalLayout';
 
 export default function Disclaimer() {
   return (
-    <LegalLayout title="Disclaimer" lastUpdated="August 23, 2026">
+    <LegalLayout title="Disclaimer" lastUpdated="August 26, 2026">
       <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200">
         <p className="text-sm text-amber-900 font-medium">
           Please read this disclaimer carefully before relying on any information in BusinessSetup.
@@ -36,14 +36,6 @@ export default function Disclaimer() {
         Requirements, costs, processing times and renewal periods can change. You should always verify
         the current requirements directly with the relevant official authority before taking any action or
         making any decision.
-      </P>
-
-      <H2>Test data</H2>
-      <P>
-        The current version of BusinessSetup contains clearly labelled <strong>test data</strong> for
-        demonstration purposes. Test data is not real regulatory information and must not be relied upon.
-        Verified information will be added from official government sources over time, and each verified
-        requirement will include its official source and last verified date.
       </P>
 
       <H2>No liability</H2>

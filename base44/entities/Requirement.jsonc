@@ -55,9 +55,12 @@
       "type": "string",
       "format": "date"
     },
+    "tips": {
+      "type": "string"
+    },
     "is_test_data": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "verification_status": {
       "type": "string",
@@ -66,7 +69,7 @@
         "unverified",
         "verified"
       ],
-      "default": "test_data"
+      "default": "verified"
     },
     "country_code": {
       "type": "string"

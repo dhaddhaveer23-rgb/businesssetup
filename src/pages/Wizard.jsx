@@ -13,7 +13,7 @@ export default function Wizard() {
 
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState({
-    country: 'SG',
+    country: 'IN',
     business_type: '',
     business_type_id: '',
     business_name: '',
@@ -23,8 +23,8 @@ export default function Wizard() {
 
   useEffect(() => {
     Promise.all([
-      base44.entities.BusinessType.filter({ country_code: 'SG' }),
-      base44.entities.BusinessQuestion.filter({ country_code: 'SG' })
+      base44.entities.BusinessType.filter({ country_code: 'IN' }),
+      base44.entities.BusinessQuestion.filter({ country_code: 'IN' })
     ])
       .then(([types, qs]) => {
         setBusinessTypes(types);
@@ -164,7 +164,7 @@ export default function Wizard() {
           <Step title="What country are you starting in?" subtitle="We'll tailor requirements to your country.">
             <div className="space-y-3">
               {[
-                { code: 'SG', name: 'Singapore', flag: '🇸🇬' }
+                { code: 'IN', name: 'India', flag: '🇮🇳' }
               ].map((c) => (
                 <button
                   key={c.code}

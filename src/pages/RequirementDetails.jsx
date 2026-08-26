@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileWarning, ExternalLink, Building, Users, FileText, DollarSign, Clock, RefreshCw, ShieldCheck, Link2, Calendar } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Building, Users, FileText, DollarSign, Clock, RefreshCw, ShieldCheck, Link2, Calendar, Lightbulb } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 export default function RequirementDetails() {
@@ -68,12 +68,13 @@ export default function RequirementDetails() {
         </div>
         <h1 className="font-heading text-2xl font-semibold tracking-tight mb-4">{req.name}</h1>
 
-        {req.is_test_data && (
-          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 mb-6">
-            <FileWarning size={16} className="text-amber-600 mt-0.5 shrink-0" />
-            <p className="text-xs text-amber-800">
-              This is <strong>test data</strong> for demonstration only. Not an official requirement.
-            </p>
+        {req.tips && (
+          <div className="flex items-start gap-3 p-4 rounded-2xl bg-primary/5 border border-primary/20 mb-6">
+            <Lightbulb size={18} className="text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">Quick tips</p>
+              <p className="text-sm leading-relaxed text-foreground/90">{req.tips}</p>
+            </div>
           </div>
         )}
 

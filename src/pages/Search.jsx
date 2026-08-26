@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search as SearchIcon, ChevronRight, FileWarning } from 'lucide-react';
+import { Search as SearchIcon, ChevronRight } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 
 export default function Search() {
@@ -11,7 +11,7 @@ export default function Search() {
   const [category, setCategory] = useState('All');
 
   useEffect(() => {
-    base44.entities.Requirement.filter({ country_code: 'SG', searchable: true })
+    base44.entities.Requirement.filter({ country_code: 'IN', searchable: true })
       .then(setAll)
       .finally(() => setLoading(false));
   }, []);
@@ -59,10 +59,6 @@ export default function Search() {
         ))}
       </div>
 
-      <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 mb-5">
-        <FileWarning size={16} className="text-amber-600 mt-0.5 shrink-0" />
-        <p className="text-xs text-amber-800">Results are <strong>test data</strong> for demonstration only.</p>
-      </div>
 
       {loading ? (
         <div className="flex justify-center py-16">

@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Check, ChevronRight, Circle, FileWarning } from 'lucide-react';
+import { ArrowLeft, Check, ChevronRight, Circle } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import TipsButton from '@/components/TipsButton';
 
 const CATEGORY_ORDER = [
   'Business Registration',
@@ -21,17 +22,23 @@ export default function Checklist() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toggling, setToggling] = useState(null);
+  const [tipsMap, setTipsMap] = useState({});
 
-  const load = () => {
-    Promise.all([
-      base44.entities.UserBusiness.get(businessId),
-      base44.entities.ChecklistItem.filter({ user_business_id: businessId })
-    ])
-      .then(([b, its]) => {
-        setBusiness(b);
-        setItems(its);
-      })
-      .finally(() => setLoading(false));
+  const load = async () => {
+    try {
+      const b = await base44.entities.UserBusiness.get(businessId);
+      const [its, reqs] = await Promise.all([
+        base44.entities.ChecklistItem.filter({ user_business_id: businessId }),
+        base44.entities.Requirement.filter({ country_code: b.country_code })
+      ]);
+      const tMap = {};
+      reqs.forEach((r) => { tMap[r.id] = r.tips; });
+      setTipsMap(tMap);
+      setBusiness(b);
+      setItems(its);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -118,15 +125,6 @@ export default function Checklist() {
           </p>
         </div>
 
-        {/* Test data banner */}
-        <div className="px-6 pt-5">
-          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200">
-            <FileWarning size={16} className="text-amber-600 mt-0.5 shrink-0" />
-            <p className="text-xs text-amber-800">
-              All requirements below are <strong>test data</strong> for demonstration only. Real requirements will be added from official sources.
-            </p>
-          </div>
-        </div>
 
         {/* Checklist */}
         <div className="px-6 py-5 space-y-6">
@@ -163,6 +161,7 @@ export default function Checklist() {
                         View details <ChevronRight size={12} />
                       </p>
                     </Link>
+                    <TipsButton tips={tipsMap[item.requirement_id]} name={item.requirement_name} />
                   </div>
                 ))}
               </div>
